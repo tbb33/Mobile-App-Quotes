@@ -8,10 +8,18 @@
                 text: "User Login"
             TextInput:
                 hint_text: "Username"
+                id: username
             TextInput:
                 hint_text: "Password"
+                id: password
             Button:
                 text: "Login"
+                #root ref to cur rule
+                #passes textinput to login() func of loginscreen class
+                on_press: root.login(root.ids.username.text, root.ids.password.text)
+            Label:
+                id: login_wrong
+                text: ""
         GridLayout:
             cols: 2
             Button:
@@ -45,10 +53,27 @@
             text: "Back to log-in page"
             on_press: root.return_log_in()
 
+<LoginScreenSuccess>:
+    GridLayout:
+        cols: 1
+        Button:
+            text: "Logout"
+            on_press: root.log_out()
+        Label:
+            text: "How are you feeling?"
+        TextInput:
+            hint_text: "Things to try: happy, sad, unloved…"
+        Button:
+            text: "Enlighten me"
+        Label:
+            text: ""
+
 <RootWidget>: #rule
     LoginScreen: 
         name: "Login_screen"
     SignUpScreen:
-        name: "sign_up_screen" #screens must have name
+        name: "sign_up_screen" 
     SignUpScreenSuccess:
-        name: "sign_up_screen_success" 
+        name: "sign_up_screen_success"
+    LoginScreenSuccess:
+        name: "login_screen_success"
