@@ -1,0 +1,42 @@
+{
+    "user1": {
+        "username": "user1",
+        "password": "newuser1",
+        "created": "2021-10-18 16-10-19"
+    },
+    "test1": {
+        "username": "test1",
+        "password": "p1",
+        "created": "2021-10-14 14-10-07"
+    },
+    "test2": {
+        "username": "test2",
+        "password": "1234",
+        "created": "2021-10-18 21-10-17"
+    },
+    "sarah": {
+        "username": "sarah",
+        "password": "1111",
+        "created": "2021-10-14 14-10-55"
+    },
+    "james": {
+        "username": "james",
+        "password": "blue123",
+        "created": "2021-10-14 14-10-48"
+    },
+    "mary": {
+        "username": "mary",
+        "password": "circle",
+        "created": "2021-10-14 14-10-00"
+    },
+    "chase": {
+        "username": "chase",
+        "password": "chasemr",
+        "created": "2021-10-14 14-10-29"
+    },
+    "test": {
+        "username": "test",
+        "password": "testpword",
+        "created": "2021-12-16 12-12-22"
+    }
+}
