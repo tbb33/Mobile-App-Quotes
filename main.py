@@ -6,9 +6,13 @@ Builder.load_file('design.kv')
 
 class LoginScreen(Screen): #screen obj
    def sign_up(self):
-       print("sign up button pressed")
+       #order to display screen
+       self.manager.current = "sign_up_screen"
 
 class RootWidget(ScreenManager): #inherits from Screenmanager obj
+    pass
+
+class SignUpScreen(Screen):
     pass
 
 class MainApp(App): #inherit form App obj

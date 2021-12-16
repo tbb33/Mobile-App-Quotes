@@ -18,8 +18,27 @@
                 text: "Forgot Password"
             Button:
                 text: "Sign up"
+                #when press this button, sign_up func called
+                #root ref to loginScreen rule widget 
+                #-> loginScreen class -> sign_up func
+                on_press: root.sign_up() 
+
+<SignUpScreen>:
+    GridLayout:
+        cols:1
+        Label:
+            text: "Sign up to get quotes based on your mood!"
+        TextInput:
+            hint_text: "Username"
+        TextInput:
+            hint_text: "Password"
+        Button:
+            text: "Submit"
 
 <RootWidget>: #rule
     #shows loginScreen child of RootWidget
     LoginScreen: 
         name: "Login_screen"
+    #listing signupscreen in widgets of rootwidget
+    SignUpScreen:
+        name: "sign_up_screen" #screens must have name
