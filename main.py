@@ -13,12 +13,12 @@ class RootWidget(ScreenManager): #inherits from Screenmanager obj
     pass
 
 class SignUpScreen(Screen):
-    pass
+    def sign_up(self, uname, pword):
+        print(uname, pword)
 
-class MainApp(App): #inherit form App obj
+class MainApp(App):
     def build(self):
-        return RootWidget() #object not class
+        return RootWidget() 
 
-if __name__=="__main__": #call MainApp class
-    #crate instance of MainApp and use run method of mainApp and App
+if __name__=="__main__": 
     MainApp().run() 
