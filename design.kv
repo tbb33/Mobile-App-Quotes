@@ -31,13 +31,11 @@
             padding: 10, 10
             spacing: 10, 0
             Button:
-                background_color: 1, 1, 1, 0 #py code
-                #self is current widget = button
-                #normal is not pressed
+                background_color: 1, 1, 1, 0 
                 opacity: 1 if self.state == 'normal' else 0.5 #py code
-                #r,g,b, opacity
-                color: 0.1, 0.7, 1, 1 #py code
+                color: 0.1, 0.7, 1, 1 
                 text: "Forgot Password"
+                on_press: root.forgot_pword()
             Button:
                 background_color: 1, 1, 1, 0
                 opacity: 1 if self.state == 'normal' else 0.5 
@@ -54,36 +52,39 @@
             text: "Sign up to get quotes based on your mood!"
         TextInput:
             hint_text: "Username"
-            id: username #var
+            id: username 
         TextInput:
             hint_text: "Password"
             id: password
+            password: True
         Button:
             text: "Submit"
-            #add user func called when button pressed
             on_press: root.add_user(root.ids.username.text, root.ids.password.text)
+        Label:
+            id: taken_uname
+            text: ""
 
 <SignUpScreenSuccess>:
     GridLayout:
         cols:1
         Label:
             text: "You have successfully signed-up"
-        Button:
-            text: "Back to log-in page"
-            on_press: root.return_log_in()
+        RelativeLayout:    
+            Button:
+                text: "Back to log-in page"
+                on_press: root.return_log_in()
+                size_hint: 0.3, 0.5
+                pos_hint: {'center_x': 0.5, 'center_y': 0.6}
 
 <LoginScreenSuccess>:
     GridLayout:
         cols: 1
-        pading: 30, 30
+        pading: 40, 40
         spacing: 30, 30
         RelativeLayout:
             ImageButton:
                 on_press: root.log_out()
-                #self.hovered is attribute of HoverBehavior class' boolean
-                #hoverable.py file detects if mouse hvoer over that button
                 source: 'logout_hover.png' if self.hovered else 'logout_nothover.png'
-                #make smaller
                 size_hint: 0.35, 0.35
                 pos_hint: {'center_x': 0.93, 'center_y': 0.8}
         Label:
@@ -102,7 +103,41 @@
                 size_hint_y: None
                 height: self.texture_size[1]
 
-<RootWidget>: #rule
+<ResetPasswordScreen>:
+    GridLayout:
+        cols:1
+        padding: 20, 20
+        spacing: 20, 20
+        Label:
+            text: "Enter your username and new password"
+        TextInput:
+            hint_text: "Existing Username"
+            id: username 
+        TextInput:
+            hint_text: "New Password"
+            id: password
+            password: True
+        Button:
+            text: "Reset password"
+            on_press: root.reset(root.ids.username.text, root.ids.password.text)
+        Label:
+            id: username_wrong
+            text: ""
+            size_hint: 0.2, 0.2
+
+<ResetScreenSuccess>:
+    GridLayout:
+        cols:1
+        Label:
+            text: "You have successfully reset your password"
+        RelativeLayout:    
+            Button:
+                text: "Back to log-in page"
+                on_press: root.return_log_in()
+                size_hint: 0.3, 0.5
+                pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+
+<RootWidget>: 
     LoginScreen: 
         name: "Login_screen"
     SignUpScreen:
@@ -111,3 +146,7 @@
         name: "sign_up_screen_success"
     LoginScreenSuccess:
         name: "login_screen_success"
+    ResetPasswordScreen:
+        name: "reset_password_screen"
+    ResetScreenSuccess:
+        name: "reset_screen_success"

@@ -20,9 +20,13 @@ class LoginScreen(Screen): #screen obj
        with open("users.json") as file:
            users = json.load(file)
        if uname in users and users[uname]['password'] == pword:
+           self.manager.transition.direction = "left"
            self.manager.current = "login_screen_success"
        else:
            self.ids.login_wrong.text = "Wrong username or password"
+
+   def forgot_pword(self):
+       self.manager.current = "reset_password_screen"
 
 class RootWidget(ScreenManager): #inherits from Screenmanager obj
     pass
@@ -31,13 +35,16 @@ class SignUpScreen(Screen):
     def add_user(self, uname, pword):
         with open("users.json") as file:
             users = json.load(file)
-            users[uname] = {'username':uname, 'password': pword,
-            'created': datetime.now().strftime("%Y-%m-%d %H-%m-%S")}
+            
+            if uname in users: 
+                self.ids.taken_uname.text = "Username is taken. Please try another"
+            else: 
+                users[uname] = {'username':uname, 'password': pword,
+                'created': datetime.now().strftime("%Y-%m-%d %H-%m-%S")}
         
-        with open("users.json", 'w' ) as file:
-            json.dump(users, file)
-        #name screen want to switch to
-        self.manager.current = "sign_up_screen_success"
+                with open("users.json", 'w' ) as file:
+                    json.dump(users, file)
+                self.manager.current = "sign_up_screen_success"
 
 class SignUpScreenSuccess(Screen):
     def return_log_in(self):
@@ -65,6 +72,27 @@ class LoginScreenSuccess(Screen):
 
 class ImageButton(ButtonBehavior, HoverBehavior, Image):
     pass
+
+#overwrites existing password if username exists
+class ResetPasswordScreen(Screen):
+    def reset(self, uname, pword):
+        with open("users.json", 'r' ) as file:
+            users = json.load(file)
+                
+            if uname in users:
+                users[uname] = {'username':uname, 'password': pword,
+                'created': datetime.now().strftime("%Y-%m-%d %H-%m-%S")}
+        
+                with open("users.json", 'w' ) as file:
+                    json.dump(users, file)
+                self.manager.current = "reset_screen_success"
+            else:
+                self.ids.username_wrong.text = "Username does not exist"
+
+class ResetScreenSuccess(Screen):
+    def return_log_in(self):
+        self.manager.transition.direction = "right"
+        self.manager.current = "Login_screen"
 
 class MainApp(App):
     def build(self):
