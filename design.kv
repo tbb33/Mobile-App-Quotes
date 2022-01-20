@@ -4,33 +4,52 @@
         cols: 1
         GridLayout:
             cols: 1
+            padding: 15, 15
+            spacing: 20, 20
             Label: 
                 text: "User Login"
+                font_size: '20sp'
             TextInput:
                 hint_text: "Username"
                 id: username
             TextInput:
                 hint_text: "Password"
+                password: True
                 id: password
-            Button:
-                text: "Login"
-                #root ref to cur rule
-                #passes textinput to login() func of loginscreen class
-                on_press: root.login(root.ids.username.text, root.ids.password.text)
+            RelativeLayout:
+                Button:
+                    text: "Login"
+                    on_press: root.login(root.ids.username.text, root.ids.password.text)
+                    size_hint: 0.3, 0.5
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
             Label:
                 id: login_wrong
                 text: ""
         GridLayout:
             cols: 2
+            size_hint: 0.2, 0.2
+            padding: 10, 10
+            spacing: 10, 0
             Button:
+                background_color: 1, 1, 1, 0 #py code
+                #self is current widget = button
+                #normal is not pressed
+                opacity: 1 if self.state == 'normal' else 0.5 #py code
+                #r,g,b, opacity
+                color: 0.1, 0.7, 1, 1 #py code
                 text: "Forgot Password"
             Button:
+                background_color: 1, 1, 1, 0
+                opacity: 1 if self.state == 'normal' else 0.5 
+                color: 0.1, 0.7, 1, 1
                 text: "Sign up"
                 on_press: root.sign_up() 
 
 <SignUpScreen>:
     GridLayout:
         cols:1
+        padding: 20, 20
+        spacing: 20, 20
         Label:
             text: "Sign up to get quotes based on your mood!"
         TextInput:
@@ -56,17 +75,32 @@
 <LoginScreenSuccess>:
     GridLayout:
         cols: 1
-        Button:
-            text: "Logout"
-            on_press: root.log_out()
+        pading: 30, 30
+        spacing: 30, 30
+        RelativeLayout:
+            ImageButton:
+                on_press: root.log_out()
+                #self.hovered is attribute of HoverBehavior class' boolean
+                #hoverable.py file detects if mouse hvoer over that button
+                source: 'logout_hover.png' if self.hovered else 'logout_nothover.png'
+                #make smaller
+                size_hint: 0.35, 0.35
+                pos_hint: {'center_x': 0.93, 'center_y': 0.8}
         Label:
             text: "How are you feeling?"
         TextInput:
             hint_text: "Things to try: happy, sad, unloved…"
+            id: feeling
         Button:
             text: "Enlighten me"
-        Label:
-            text: ""
+            on_press: root.quote(root.ids.feeling.text)
+        ScrollView:
+            Label:
+                id: show_quote
+                text: ""
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
 
 <RootWidget>: #rule
     LoginScreen: 
